@@ -23,7 +23,7 @@ class MainAdapter(
 
 
      }
-
+//
      override fun getItemCount(): Int {
          return squares.size
      }

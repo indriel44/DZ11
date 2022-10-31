@@ -35,6 +35,7 @@ class MainAdapter(
             number.text = square
             if (i%2==0)
             {number.setBackgroundColor(Color.RED)}
+            else number.setBackgroundColor(Color.BLUE)
             Log.d("TEST", "$i")
         }
     }

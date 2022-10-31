@@ -1,7 +1,6 @@
 package com.example.dz1_1
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +38,7 @@ class Fragment: Fragment(){
         number+=1
         numberOfSquares=number
         squares.add(number-1,"$number")
-        Log.d("TEST", "$squares")
+
         squareAdapter.notifyDataSetChanged()
     }
 

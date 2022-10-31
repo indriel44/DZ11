@@ -1,14 +1,11 @@
 package com.example.dz1_1
 
 import android.graphics.Color
-import android.location.GnssAntennaInfo.Listener
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import org.w3c.dom.Text
 
 class MainAdapter(
     private val squares: List<String>,
@@ -31,12 +28,11 @@ class MainAdapter(
         private val number: TextView = itemView.findViewById(R.id.TextView_square)
 
         fun bind(square: String) {
-            var i=Integer.parseInt(square)
+            val i=Integer.parseInt(square)
             number.text = square
             if (i%2==0)
             {number.setBackgroundColor(Color.RED)}
             else number.setBackgroundColor(Color.BLUE)
-            Log.d("TEST", "$i")
         }
     }
 }

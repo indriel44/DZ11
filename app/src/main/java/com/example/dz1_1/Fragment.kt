@@ -9,10 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 
 class Fragment: Fragment(){
-    private var numberOfSquares:Int?=1
+    private var numberOfSquares:Int=1
     private var squares=generateStart().toMutableList()
     private val squareAdapter=MainAdapter(squares)
-    private var number:Int=1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,40 +22,33 @@ class Fragment: Fragment(){
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        numberOfSquares=savedInstanceState?.getInt("MainNumber",number)
-        if (numberOfSquares==null) numberOfSquares=1
-        number=numberOfSquares!!
-        squares=ReturnSquares(numberOfSquares,squares)
+        if (savedInstanceState != null)
+        numberOfSquares=savedInstanceState.getInt("MainNumber",numberOfSquares)
+        squares=returnSquares(numberOfSquares,squares)
         val recyclerView=view.findViewById<RecyclerView>(R.id.activity_main_rv)
         recyclerView.adapter=squareAdapter
-        val Button=view.findViewById<Button>(R.id.AddButton)
-        Button.setOnClickListener {onAddClick()}
+        val button=view.findViewById<Button>(R.id.AddButton)
+        button.setOnClickListener {onAddClick()}
     }
 
     private fun onAddClick()
     {
-        number+=1
-        numberOfSquares=number
-        squares.add(number-1,"$number")
-
+        squares.add(numberOfSquares-1,"$numberOfSquares")
+        numberOfSquares+=1
         squareAdapter.notifyDataSetChanged()
     }
 
     override fun onSaveInstanceState(outState: Bundle)
     {
         super.onSaveInstanceState(outState)
-        outState.putInt("MainNumber",number)
+        outState.putInt("MainNumber",numberOfSquares)
     }
 }
 private fun generateStart(): List<String>
 { return listOf("1")}
 
-private fun ReturnSquares(Num:Int?,list:MutableList<String>): MutableList<String>
+private fun returnSquares(Num:Int,list:MutableList<String>): MutableList<String>
 {
-    val num:Int
-    if (Num!=null)
-    { num=Num
-        for (i in 2..num) list.add("$i")
-    }
+        for (i in 2..Num) list.add("$i")
     return list
 }

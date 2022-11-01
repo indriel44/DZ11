@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">DZ1_1</string>
     <string name="ButtonText">ADD</string>
+    <string name="dp_0">0dp</string>
+    <string name="dp_15">15dp</string>
 </resources>

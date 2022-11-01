@@ -23,10 +23,11 @@ class Fragment: Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState != null)
-        numberOfSquares=savedInstanceState.getInt(saveKey,numberOfSquares)
+        {numberOfSquares=savedInstanceState.getInt(saveKey,numberOfSquares)}
         squares=returnSquares(numberOfSquares,squares)
-        val recyclerView=view.findViewById<RecyclerView>(R.id.activity_main_rv)
-        recyclerView.adapter=squareAdapter
+        val recyclerView:RecyclerView?=view.findViewById<RecyclerView>(R.id.activity_main_rv)
+        if (recyclerView!=null)
+        { recyclerView.adapter=squareAdapter}
         val button=view.findViewById<Button>(R.id.AddButton)
         button.setOnClickListener {onAddClick()}
     }

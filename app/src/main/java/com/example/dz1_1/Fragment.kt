@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 
 class Fragment: Fragment(){
     private var numberOfSquares:Int=1
-    private var squares=generateStart().toMutableList()
+    private var squares=mutableListOf<String>()
     private val squareAdapter=MainAdapter(squares)
-
+    private val saveKey:String="saveKey"
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -23,7 +23,7 @@ class Fragment: Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState != null)
-        numberOfSquares=savedInstanceState.getInt("MainNumber",numberOfSquares)
+        numberOfSquares=savedInstanceState.getInt(saveKey,numberOfSquares)
         squares=returnSquares(numberOfSquares,squares)
         val recyclerView=view.findViewById<RecyclerView>(R.id.activity_main_rv)
         recyclerView.adapter=squareAdapter
@@ -33,7 +33,7 @@ class Fragment: Fragment(){
 
     private fun onAddClick()
     {
-        squares.add(numberOfSquares-1,"$numberOfSquares")
+        squares.add("$numberOfSquares")
         numberOfSquares+=1
         squareAdapter.notifyDataSetChanged()
     }
@@ -41,14 +41,12 @@ class Fragment: Fragment(){
     override fun onSaveInstanceState(outState: Bundle)
     {
         super.onSaveInstanceState(outState)
-        outState.putInt("MainNumber",numberOfSquares)
+        outState.putInt(saveKey,numberOfSquares)
     }
 }
-private fun generateStart(): List<String>
-{ return listOf("1")}
 
 private fun returnSquares(Num:Int,list:MutableList<String>): MutableList<String>
 {
-        for (i in 2..Num) list.add("$i")
+        for (i in 1 until Num) list.add("$i")
     return list
 }

@@ -5,49 +5,54 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 
-class Fragment: Fragment(){
-    private var numberOfSquares:Int=1
-    private var squares=mutableListOf<String>()
-    private val squareAdapter=MainAdapter(squares)
-    private val saveKey:String="saveKey"
+class Fragment : Fragment() {
+    private var numberOfSquares: Int = 1
+    private var squares = mutableListOf<String>()
+    private val squareAdapter = MainAdapter(squares)
+    private val saveKey: String = "saveKey"
+    private val toast_number=6
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_main, null,false)
+        return inflater.inflate(R.layout.fragment_main, null, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (savedInstanceState != null)
-        {numberOfSquares=savedInstanceState.getInt(saveKey,numberOfSquares)}
-        squares=returnSquares(numberOfSquares,squares)
-        val recyclerView:RecyclerView?=view.findViewById<RecyclerView>(R.id.activity_main_rv)
-        if (recyclerView!=null)
-        { recyclerView.adapter=squareAdapter}
-        val button=view.findViewById<Button>(R.id.AddButton)
-        button.setOnClickListener {onAddClick()}
+        if (savedInstanceState != null) {
+            numberOfSquares = savedInstanceState.getInt(saveKey, numberOfSquares)
+        }
+        squares = returnSquares(numberOfSquares, squares)
+        val recyclerView: RecyclerView? = view.findViewById<RecyclerView>(R.id.activity_main_rv)
+        if (recyclerView != null) {
+            recyclerView.adapter = squareAdapter
+        }
+        val button = view.findViewById<Button>(R.id.AddButton)
+        button.setOnClickListener { onAddClick() }
     }
 
-    private fun onAddClick()
-    {
+    private fun onAddClick() {
+        //val toast = Toast.makeText(activity, resources.getString(R.string.toast_text), Toast.LENGTH_SHORT)
+      //  if (numberOfSquares<toast_number){
         squares.add("$numberOfSquares")
-        numberOfSquares+=1
+        numberOfSquares += 1
         squareAdapter.notifyDataSetChanged()
+      //  } else toast.show()
     }
 
-    override fun onSaveInstanceState(outState: Bundle)
-    {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(saveKey,numberOfSquares)
+        outState.putInt(saveKey, numberOfSquares)
     }
 }
 
-private fun returnSquares(Num:Int,list:MutableList<String>): MutableList<String>
-{
-        for (i in 1 until Num) list.add("$i")
+private fun returnSquares(Num: Int, list: MutableList<String>): MutableList<String> {
+    for (i in 1 until Num) list.add("$i")
     return list
 }
